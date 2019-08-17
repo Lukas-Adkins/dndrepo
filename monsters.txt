@@ -2,13 +2,6 @@ Aboleth
 Large aberration, lawful evil
 Hit Points:
 135 (18d10+36) Armor Class:
-17 (Natural Armor) Speed:
+17 Speed:
 10 ft., swim 40 ft. Challenge Rating:
 10 (5,900 XP)
-Acolyte
-Medium humanoid (any race), any alignment
-Hit Points:
-9 (2d8) Armor Class:
-10 Speed:
-30 ft. Challenge Rating:
-1/4 (50 XP)

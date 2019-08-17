@@ -17,6 +17,11 @@ public class Monster{
     private int XP;
 
     /**
+     * Empty constructor
+     */
+    public Monster(){ }
+
+    /**
      * Represents a D&D monster.
      * @param name Name of the monster.
      * @param size Size of the monster.
@@ -118,14 +123,14 @@ public class Monster{
 }
 
 enum Size{
-    Tiny, Small, Medium, Large, Huge, Gargantuan;
+    Tiny, Small, Medium, Large, Huge, Gargantuan
 }
 
 enum Alignment {
-    LawfulGood, NeutralGood, ChaoticGood, LawfulNeutral, Neutral, ChaoticNeutral, LawfulEvil, NeutralEvil, ChaoticEvil;
+    LawfulGood, NeutralGood, ChaoticGood, LawfulNeutral, Neutral, ChaoticNeutral, LawfulEvil, NeutralEvil, ChaoticEvil, Any
 }
 
 enum Type{
     Aberration, Beast, Celestial, Construct, Dragon, Elemental, Fey, Fiend, Giant, Humanoid, Monstrosity, Ooze, Plant,
-    Undead;
+    Undead
 }

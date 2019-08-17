@@ -10,152 +10,113 @@ import java.util.Scanner;
  * Creates Monster Objects from monster list raw text (from roll20.com)
  */
 public class MonsterListParser {
+    private static final int OFFSET_VALUE = 3;
     private File monsterList;
 
     /**
      * Default Constructor
-     * /TODO FIX FOR VARIATIONS
      */
     public MonsterListParser(File monsterList, ArrayList<Monster> monsters) throws FileNotFoundException{
         Scanner sc = new Scanner(monsterList);
         while(sc.hasNext()){
-            String name = sc.nextLine();
-            String sizeRaw = sc.next();
-            Size size = null;
-            switch (sizeRaw.toLowerCase()){
-                case "tiny":
-                    size = Size.Tiny;
-                    break;
-                case "small":
-                    size = Size.Small;
-                    break;
-                case "medium":
-                    size = Size.Medium;
-                    break;
-                case "large":
-                    size = Size.Large;
-                    break;
-                case "huge":
-                    size = Size.Huge;
-                    break;
-                case "gargantuan":
-                    size = Size.Gargantuan;
-                    break;
-                default:
-                    System.err.println("ERROR: Size not read for " + name);
-                    break;
+            Monster newMonster = new Monster();
 
-            }
-            Type type = null;
-            String typeRaw = sc.next();
-
-            switch (typeRaw.toLowerCase()) {
-                case "aberration,":
-                    type = Type.Aberration;
-                    break;
-                case "beast,":
-                    type = Type.Beast;
-                    break;
-                case "celestial,":
-                    type = Type.Celestial;
-                    break;
-                case "construct,":
-                    type = Type.Construct;
-                    break;
-                case "dragon,":
-                    type = Type.Dragon;
-                    break;
-                case "elemental,":
-                    type = Type.Elemental;
-                    break;
-                case "fey,":
-                    type = Type.Fey;
-                    break;
-                case "fiend,":
-                    type = Type.Fiend;
-                    break;
-                case "giant,":
-                    type = Type.Giant;
-                    break;
-                case "humanoid,":
-                    type = Type.Humanoid;
-                    break;
-                case "ooze,":
-                    type = Type.Ooze;
-                    break;
-                case "plant,":
-                    type = Type.Plant;
-                    break;
-                case "undead,":
-                    type = Type.Undead;
-                    break;
-                case "monstrosity,":
-                    type = Type.Monstrosity;
-                    break;
-                default:
-                    System.err.println("ERROR: Type not read for " + name);
-                    break;
-            }
-            Alignment alignment = null;
-            String alignmentRaw = sc.next() + " " + sc.next();
-
-            switch (alignmentRaw.toLowerCase()){
-                case "lawful good":
-                    alignment = Alignment.LawfulGood;
-                    break;
-                case "neutral good":
-                    alignment = Alignment.NeutralGood;
-                    break;
-                case "chaotic good":
-                    alignment = Alignment.ChaoticGood;
-                    break;
-                case "lawful neutral":
-                    alignment = Alignment.LawfulNeutral;
-                    break;
-                case "neutral":
-                    alignment = Alignment.Neutral;
-                    break;
-                case "chaotic neutral":
-                    alignment = Alignment.ChaoticNeutral;
-                    break;
-                case "lawful evil":
-                    alignment = Alignment.LawfulEvil;
-                    break;
-                case "neutral evil":
-                    alignment = Alignment.NeutralEvil;
-                    break;
-                case "chaotic evil":
-                    alignment = Alignment.ChaoticEvil;
-                    break;
-                default:
-                    System.err.println("ERROR: Alignment not read for " + name);
-                    break;
-            }
-            sc.next();
-            sc.next();
-            int HP = sc.nextInt();
-            sc.next();
-            sc.next();
-            sc.next();
-            int AC = sc.nextInt();
-            sc.next();
-            sc.next();
-            sc.next();
-            int speed = sc.nextInt();
-            int challengeRating = 0;
-            sc.next();
-            sc.next();
-            sc.next();
-            sc.next();
-            sc.next();
-            sc.next();
-            sc.next();
-            String XPRaw = sc.next().replace(",","");
-            //System.out.println(sc.next());
-            sc.next();
+            newMonster.setName(sc.nextLine());
+            String nextLine = sc.nextLine();
+            Scanner sb = new Scanner(nextLine.substring(0,nextLine.indexOf(',')));
+            newMonster.setSize(parseSize(sb.next()));
+            newMonster.setType(parseType(sb.next()));
+            newMonster.setAlignment(parseAlignment(nextLine.substring(nextLine.indexOf(',') + 1)));
             sc.nextLine();
-            int XP = Integer.parseInt(XPRaw.substring(1));
-            monsters.add(new Monster(name,size,type,alignment,HP,AC,speed,challengeRating,XP));
+            newMonster.setHP(Integer.parseInt(sc.next()));
+            sc.nextLine();
+            nextLine = sc.nextLine();
+            newMonster.setSpeed(Integer.parseInt(nextLine.substring(0,nextLine.indexOf(' '))));
+            newMonster.setChallengeRating(0);
+            sc.nextLine();
+            nextLine = sc.nextLine();
+            newMonster.setXP(Integer.parseInt(nextLine.substring(nextLine.indexOf('(') + 1,nextLine.indexOf(')') - OFFSET_VALUE).replace(",","")));
+            newMonster.printInfo();
         }
+    }
+
+    private Size parseSize(String s){
+        switch (s.toLowerCase()){
+            case "tiny":
+                return Size.Tiny;
+            case "small":
+                return Size.Small;
+            case "medium":
+                return Size.Medium;
+            case "large":
+                return Size.Large;
+            case "huge":
+                return Size.Huge;
+            case "gargantuan":
+                return Size.Gargantuan;
+
+        }
+        return null;
+    }
+
+    private Type parseType(String s){
+        switch (s.toLowerCase()) {
+            case "aberration,":
+                return Type.Aberration;
+            case "beast,":
+                return Type.Beast;
+            case "celestial,":
+                return Type.Celestial;
+            case "construct,":
+                return Type.Construct;
+            case "dragon,":
+                return Type.Dragon;
+            case "elemental,":
+                return Type.Elemental;
+            case "fey,":
+                return Type.Fey;
+            case "fiend,":
+                return Type.Fiend;
+            case "giant,":
+                return Type.Giant;
+            case "humanoid,":
+                return Type.Humanoid;
+            case "ooze,":
+                return Type.Ooze;
+            case "plant,":
+                return Type.Plant;
+            case "undead,":
+                return Type.Undead;
+            case "monstrosity,":
+                return Type.Monstrosity;
+
+        }
+        return null;
+    }
+
+    private Alignment parseAlignment(String s){
+        switch (s.toLowerCase()){
+            case "lawful good":
+                return Alignment.LawfulGood;
+            case "neutral good":
+                return Alignment.NeutralGood;
+            case "chaotic good":
+                return Alignment.ChaoticGood;
+            case "lawful neutral":
+                return Alignment.LawfulNeutral;
+            case "neutral":
+                return Alignment.Neutral;
+            case "chaotic neutral":
+                return Alignment.ChaoticNeutral;
+            case "lawful evil":
+                return Alignment.LawfulEvil;
+            case "neutral evil":
+                return Alignment.NeutralEvil;
+            case "chaotic evil":
+                return Alignment.ChaoticEvil;
+            case "any alignment":
+                return Alignment.Any;
+        }
+        return null;
     }
 }
