@@ -40,6 +40,10 @@ public class Monster{
         this.XP = XP;
     }
 
+    public void printInfo(){
+        System.out.println(name + "\n" + size + " " + type + ", " + alignment + "\nHP: "+ HP + "\nAC: " + AC + "\nSpeed: " + speed + " ft\n" + "XP: " + XP +"\n");
+    }
+
     public int getXP() {
         return XP;
     }
@@ -118,7 +122,7 @@ enum Size{
 }
 
 enum Alignment {
-    LawfulGood, NeutralGood, ChaoticGood, LawfulNeutral, Neutral, ChatoicNeutral, LawfulEvil, NeutralEvil, ChaoticEvil;
+    LawfulGood, NeutralGood, ChaoticGood, LawfulNeutral, Neutral, ChaoticNeutral, LawfulEvil, NeutralEvil, ChaoticEvil;
 }
 
 enum Type{
