@@ -26,17 +26,19 @@ public class MonsterListParser {
             Scanner sb = new Scanner(nextLine.substring(0,nextLine.indexOf(',')));
             newMonster.setSize(parseSize(sb.next()));
             newMonster.setType(parseType(sb.next()));
-            newMonster.setAlignment(parseAlignment(nextLine.substring(nextLine.indexOf(',') + 1)));
+            newMonster.setAlignment(parseAlignment(nextLine.substring(nextLine.indexOf(',') + 2)));
             sc.nextLine();
             newMonster.setHP(Integer.parseInt(sc.next()));
+            newMonster.setHpDice(sc.next());
             sc.nextLine();
             nextLine = sc.nextLine();
-            newMonster.setSpeed(Integer.parseInt(nextLine.substring(0,nextLine.indexOf(' '))));
+            newMonster.setAC(Integer.parseInt(nextLine.substring(0,nextLine.indexOf(' '))));
             newMonster.setChallengeRating(0);
-            sc.nextLine();
+            nextLine = sc.nextLine();
+            newMonster.setSpeed(nextLine.substring(0,nextLine.indexOf('C')));
             nextLine = sc.nextLine();
             newMonster.setXP(Integer.parseInt(nextLine.substring(nextLine.indexOf('(') + 1,nextLine.indexOf(')') - OFFSET_VALUE).replace(",","")));
-            newMonster.printInfo();
+            monsters.add(newMonster);
         }
     }
 
@@ -61,33 +63,33 @@ public class MonsterListParser {
 
     private Type parseType(String s){
         switch (s.toLowerCase()) {
-            case "aberration,":
+            case "aberration":
                 return Type.Aberration;
-            case "beast,":
+            case "beast":
                 return Type.Beast;
-            case "celestial,":
+            case "celestial":
                 return Type.Celestial;
-            case "construct,":
+            case "construct":
                 return Type.Construct;
-            case "dragon,":
+            case "dragon":
                 return Type.Dragon;
-            case "elemental,":
+            case "elemental":
                 return Type.Elemental;
-            case "fey,":
+            case "fey":
                 return Type.Fey;
-            case "fiend,":
+            case "fiend":
                 return Type.Fiend;
-            case "giant,":
+            case "giant":
                 return Type.Giant;
-            case "humanoid,":
+            case "humanoid":
                 return Type.Humanoid;
             case "ooze,":
                 return Type.Ooze;
-            case "plant,":
+            case "plant":
                 return Type.Plant;
-            case "undead,":
+            case "undead":
                 return Type.Undead;
-            case "monstrosity,":
+            case "monstrosity":
                 return Type.Monstrosity;
 
         }

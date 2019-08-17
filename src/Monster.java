@@ -12,9 +12,10 @@ public class Monster{
     private Type type;
     private int HP;
     private int AC;
-    private int speed;
+    private String speed;
     private int challengeRating;
     private int XP;
+    private String HpDice;
 
     /**
      * Empty constructor
@@ -33,7 +34,7 @@ public class Monster{
      * @param challengeRating Challenge Rating of the monster.
      * @param XP Experience points given for defeating the monster.
      */
-    public Monster(String name, Size size, Type type, Alignment alignment, int HP, int AC, int speed, int challengeRating, int XP){
+    public Monster(String name, Size size, Type type, Alignment alignment, int HP, int AC, String speed, int challengeRating, int XP){
         this.name = name;
         this.size = size;
         this.type = type;
@@ -46,7 +47,7 @@ public class Monster{
     }
 
     public void printInfo(){
-        System.out.println(name + "\n" + size + " " + type + ", " + alignment + "\nHP: "+ HP + "\nAC: " + AC + "\nSpeed: " + speed + " ft\n" + "XP: " + XP +"\n");
+        System.out.println(name + "\n" + size + " " + type + ", Alignment " + alignment + "\nHP: "+ HP + "\nAC: " + AC + "\nSpeed: " + speed + "\n" + "XP: " + XP +"\n");
     }
 
     public int getXP() {
@@ -65,11 +66,11 @@ public class Monster{
         this.challengeRating = challengeRating;
     }
 
-    public int getSpeed() {
+    public String getSpeed() {
         return speed;
     }
 
-    public void setSpeed(int speed) {
+    public void setSpeed(String speed) {
         this.speed = speed;
     }
 
@@ -119,6 +120,14 @@ public class Monster{
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getHpDice() {
+        return HpDice;
+    }
+
+    public void setHpDice(String hpDice) {
+        HpDice = hpDice;
     }
 }
 
