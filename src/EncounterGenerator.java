@@ -1,14 +1,8 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class EncounterGenerator {
-    private static final double EASY = 0.5;
-    private static final double MEDIUM = 0.5;
-    private static final double HARD = 1.5;
-    private static final double DEADLY = 2;
     private static final int ARRAY_HEIGHT = 20;
     private static final int ARRAY_WIDTH = 4;
     private int[][] expArray;
@@ -24,6 +18,10 @@ public class EncounterGenerator {
         }
     }
 
+    public void newEncounter(int players, int level, int difficultly, Location location){
+        int xpBudget = xpBudget(players,level,difficultly);
+    }
+
     /**
      * Generates XP budget for encounter
      * @param players Number of players in the party
@@ -31,7 +29,15 @@ public class EncounterGenerator {
      * @param difficulty Double value of easy, medium, hard, or deadly difficultly (1 - 4)
      * @return XP budget for encounter
      */
-    public int xpBudget(int players, int level, int difficulty){
-        return players * expArray[level - 1][ difficulty - 1];
+    private int xpBudget(int players, int level, int difficulty){
+        if(level > 0 && level < 20 && difficulty > 0 && difficulty < 5){
+            return players * expArray[level - 1][ difficulty - 1];
+        }
+        System.err.println("Improper level or difficulty input.");
+        return -1;
+    }
+
+    enum Location{
+        Forest;
     }
 }

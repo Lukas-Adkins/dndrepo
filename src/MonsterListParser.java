@@ -11,18 +11,21 @@ import java.util.Scanner;
  */
 public class MonsterListParser {
     private static final int OFFSET_VALUE = 3;
+    private Scanner sc;
 
     /**
      * Default Constructor
      */
-    public MonsterListParser(File monsterList, ArrayList<Monster> monsters) throws FileNotFoundException{
-        //TODO MOVE FROM CONSTRUCTOR TO METHOD
-        Scanner sc = new Scanner(monsterList);
-        while(sc.hasNext()){
+    public MonsterListParser(File monsterList) throws FileNotFoundException{
+         sc = new Scanner(monsterList);
+    }
+
+    public void fillList(ArrayList<Monster> monsters) {
+        while (sc.hasNext()) {
             Monster newMonster = new Monster();
             newMonster.setName(sc.nextLine());
             String nextLine = sc.nextLine();
-            Scanner sb = new Scanner(nextLine.substring(0,nextLine.indexOf(',')));
+            Scanner sb = new Scanner(nextLine.substring(0, nextLine.indexOf(',')));
             newMonster.setSize(parseSize(sb.next()));
             newMonster.setType(parseType(sb.next()));
             newMonster.setAlignment(parseAlignment(nextLine.substring(nextLine.indexOf(',') + 2)));
@@ -31,12 +34,12 @@ public class MonsterListParser {
             newMonster.setHpDice(sc.next());
             sc.nextLine();
             nextLine = sc.nextLine();
-            newMonster.setAC(Integer.parseInt(nextLine.substring(0,nextLine.indexOf(' '))));
+            newMonster.setAC(Integer.parseInt(nextLine.substring(0, nextLine.indexOf(' '))));
             newMonster.setChallengeRating(0);
             nextLine = sc.nextLine();
-            newMonster.setSpeed(nextLine.substring(0,nextLine.indexOf('C')));
+            newMonster.setSpeed(nextLine.substring(0, nextLine.indexOf('C')));
             nextLine = sc.nextLine();
-            newMonster.setXP(Integer.parseInt(nextLine.substring(nextLine.indexOf('(') + 1,nextLine.indexOf(')') - OFFSET_VALUE).replace(",","")));
+            newMonster.setXP(Integer.parseInt(nextLine.substring(nextLine.indexOf('(') + 1, nextLine.indexOf(')') - OFFSET_VALUE).replace(",", "")));
             monsters.add(newMonster);
         }
     }
