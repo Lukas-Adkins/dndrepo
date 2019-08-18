@@ -11,16 +11,15 @@ import java.util.Scanner;
  */
 public class MonsterListParser {
     private static final int OFFSET_VALUE = 3;
-    private File monsterList;
 
     /**
      * Default Constructor
      */
     public MonsterListParser(File monsterList, ArrayList<Monster> monsters) throws FileNotFoundException{
+        //TODO MOVE FROM CONSTRUCTOR TO METHOD
         Scanner sc = new Scanner(monsterList);
         while(sc.hasNext()){
             Monster newMonster = new Monster();
-
             newMonster.setName(sc.nextLine());
             String nextLine = sc.nextLine();
             Scanner sb = new Scanner(nextLine.substring(0,nextLine.indexOf(',')));
