@@ -38,6 +38,6 @@ public class EncounterGenerator {
     }
 
     enum Location{
-        Forest;
+        Forest, Arctic, Coast, Desert, Grassland, Hill, Mountain, Swamp, Underdark, Underwater, Urban
     }
 }
