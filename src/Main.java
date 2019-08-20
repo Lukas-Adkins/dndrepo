@@ -23,6 +23,7 @@ public class Main {
         System.out.println("Forest, Arctic, Coast, Desert, Grassland, Hill, Mountain, Swamp, Underdark, Underwater, or Urban.");
 
         while(running){
+            String input = sc.nextLine();
             //TODO add user input parsing
             generator.newEncounter(players,level,2, EncounterGenerator.Location.Forest);
         }
