@@ -20,6 +20,7 @@ public class EncounterGenerator {
 
     public void newEncounter(int players, int level, int difficultly, Location location){
         int xpBudget = xpBudget(players,level,difficultly);
+        System.out.println("XP budget for a " + players + " player party of level " + level + " with a " + difficultly + " difficulty multiplier is: " + xpBudget);
     }
 
     /**
