@@ -17,7 +17,7 @@ public class Main {
         players = sc.nextInt();
         System.out.println("Next, please enter your party's level:");
         level = sc.nextInt();
-        System.out.println("To begin generating encounters, please enter a biome and difficultly. Or type 'quit' to exit.");
+        System.out.println("To begin generating encounters, please enter a difficultly and biome. Or type 'quit' to exit.");
         System.out.println("Example input 'Hard Coast' would generate a hard encounter taking place in a coast biome.");
         System.out.println("Difficulties are Easy, Medium, Hard, or Deadly.");
         System.out.println("Possible biomes are as follows: ");
