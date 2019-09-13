@@ -1,21 +1,34 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class EncounterGenerator {
     private static final int ARRAY_HEIGHT = 20;
     private static final int ARRAY_WIDTH = 4;
     private int[][] expArray;
+    private ArrayList<Monster> monsterList;
+    private MonsterListParser listParser;
+    private ArrayList<ArrayList<Monster>> encounterList;
 
 
+    /**
+     * Constructor for the Encounter Generator.
+     * @param exp Input file needed to quickly lookup XP budgets for levels, as they do not follow a formula
+     * @throws FileNotFoundException Error if the needed file is not found.
+     */
     public EncounterGenerator(File exp) throws FileNotFoundException{
-        expArray = new int[ARRAY_HEIGHT][ARRAY_WIDTH];
+        this.expArray = new int[ARRAY_HEIGHT][ARRAY_WIDTH];
         Scanner sc = new Scanner(exp);
         for(int i = 0; i < ARRAY_HEIGHT; i++){
             for(int o = 0; o < ARRAY_WIDTH; o++){
-                expArray[i][o] = sc.nextInt();
+                this.expArray[i][o] = sc.nextInt();
             }
         }
+        this.monsterList= new ArrayList<>();
+        this.encounterList = new ArrayList<>();
+        this.listParser = new MonsterListParser(new File("monsters.txt"));
+        this.listParser.fillList(monsterList);
     }
 
     public void newEncounter(int players, int level, int difficultly, Location location){

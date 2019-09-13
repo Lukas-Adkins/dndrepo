@@ -1,6 +1,5 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
@@ -8,9 +7,7 @@ public class Main {
         boolean running = true;
         int players, level, difficultly = 0;
         Scanner sc = new Scanner(System.in);
-        ArrayList<Monster> monsterList= new ArrayList<>();
-        MonsterListParser listParser = new MonsterListParser(new File("monsters.txt"));
-        listParser.fillList(monsterList);
+
         EncounterGenerator generator = new EncounterGenerator(new File("exp.txt"));
 
         System.out.println("Welcome to Goo's D&D Encounter generator. Please enter the number of players in your party:");
