@@ -11,7 +11,6 @@ public class EncounterGenerator {
     private MonsterListParser listParser;
     private ArrayList<ArrayList<Monster>> encounterList;
 
-
     /**
      * Constructor for the Encounter Generator.
      * @param exp Input file needed to quickly lookup XP budgets for levels, as they do not follow a formula
@@ -40,7 +39,9 @@ public class EncounterGenerator {
         System.out.println("Generating encounter for a " + players + " player level " + level + " party in " + location + " biome.");
         System.out.println("XP budget is: " + xpBudget);
         System.out.println("CR budget is: " + crBudget);
-        //TODO encounter generation script
+        System.out.println("Possible Encounters:");
+        //Populate encounterList
+        System.out.println(encounterList);
     }
 
     /**
