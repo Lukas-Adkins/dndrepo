@@ -28,6 +28,8 @@ public class EncounterGenerator {
         this.encounterList = new ArrayList<>();
         this.listParser = new MonsterListParser(new File("monsters.txt"));
         this.listParser.fillList(monsterList);
+        //TODO use List iterator to sort by biome
+        //monsterList.listIterator()
     }
 
     public void newEncounter(int players, int level, int difficultly, Location location){
