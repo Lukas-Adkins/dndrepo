@@ -1,13 +1,17 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.awt.*;
+
 
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
+
+        /*
         boolean running = true;
         int players, level, difficultly = 0;
-        Scanner sc = new Scanner(System.in);
 
+        Scanner sc = new Scanner(System.in);
         EncounterGenerator generator = new EncounterGenerator(new File("exp.txt"));
 
         System.out.println("Welcome to Goo's D&D Encounter generator. Please enter the number of players in your party:");
@@ -19,7 +23,9 @@ public class Main {
         System.out.println("Difficulties are Easy, Medium, Hard, or Deadly.");
         System.out.println("Possible biomes are as follows: ");
         System.out.println("Forest, Arctic, Coast, Desert, Grassland, Hill, Mountain, Swamp, Underdark, Underwater, or Urban.");
+        */
 
+        /*
         while(running){
             EncounterGenerator.Location location = null;
             String input = sc.next();
@@ -80,5 +86,6 @@ public class Main {
                 generator.newEncounter(players,level,difficultly, location);
             }
         }
+        */
     }
 }
