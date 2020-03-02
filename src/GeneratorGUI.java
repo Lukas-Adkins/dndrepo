@@ -6,10 +6,12 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 
 //https://www.ntu.edu.sg/home/ehchua/programming/java/J4a_GUI.html
 
-public class GeneratorGUI extends Frame implements ActionListener, ListSelectionListener {
+public class GeneratorGUI extends Frame implements ActionListener, ListSelectionListener, ItemListener {
     private static final int EASY = 1;
     private static final int MEDIUM = 2;
     private static final int HARD = 3;
@@ -24,6 +26,12 @@ public class GeneratorGUI extends Frame implements ActionListener, ListSelection
     private JList difficultyList;
     private static final String[] DIFFICULTIES = {"Easy", "Medium", "Hard", "Deadly"};
     private int difficulty;
+
+    private Choice biomeChoice;
+    private static final String[] BIOMES = {"Forest", "Arctic", "Coast", "Desert",
+            "Grassland", "Hill", "Mountain", "Swamp", "Underdark", "Underwater", "Urban"};
+    private String biome;
+
 
     /**
      * GUI constructor: initializes variables
@@ -50,6 +58,16 @@ public class GeneratorGUI extends Frame implements ActionListener, ListSelection
         difficultyList.setPreferredSize(new Dimension(250,100));
         add(difficultyList);
         difficultyList.addListSelectionListener(this);
+
+        //Initializes biome selector
+        this.biome = "Forest";
+        biomeChoice = new Choice();
+        for(String biomes : BIOMES){
+            biomeChoice.add(biomes);
+        }
+        add(biomeChoice);
+        biomeChoice.addItemListener(this);
+
 
 
         setTitle("D&D 5e Encounter Generator");
@@ -99,5 +117,11 @@ public class GeneratorGUI extends Frame implements ActionListener, ListSelection
             //Debug print
             System.out.println("New difficulty selection: " + difficulty);
         }
+    }
+
+    @Override
+    public void itemStateChanged(ItemEvent event){
+        this.biome = String.valueOf(event.getItem());
+        System.out.println("New biome selection " + biome);
     }
 }
