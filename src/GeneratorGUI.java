@@ -11,7 +11,7 @@ import java.awt.event.ItemListener;
 
 //https://www.ntu.edu.sg/home/ehchua/programming/java/J4a_GUI.html
 
-public class GeneratorGUI extends Frame implements ActionListener, ListSelectionListener, ItemListener {
+public class GeneratorGUI extends JFrame implements ActionListener, ListSelectionListener, ItemListener {
     private static final int EASY = 1;
     private static final int MEDIUM = 2;
     private static final int HARD = 3;
@@ -38,17 +38,17 @@ public class GeneratorGUI extends Frame implements ActionListener, ListSelection
      */
     public GeneratorGUI(){
         //Flow layout arranges components from left-to-right, and flow to next row from top-to-bottom
-        setLayout(new FlowLayout());
+        Container container = getContentPane();
+        container.setLayout(new FlowLayout());
 
         //Initializes party level, and button
-        //TODO make this work when you also type the number in the box - currently it doesn't work
         this.partyLvlLabel = new Label("Party Level: ");
-        add(partyLvlLabel);
+        container.add(partyLvlLabel);
         partyLvlField = new TextField(String.valueOf(partyLvlInt), 1);
         partyLvlField.setEditable(true);
-        add(partyLvlField);
+        container.add(partyLvlField);
         partyLvlBt = new Button("++");
-        add(partyLvlBt);
+        container.add(partyLvlBt);
         partyLvlBt.addActionListener(this);
         partyLvlField.addActionListener(this);
 
@@ -58,7 +58,7 @@ public class GeneratorGUI extends Frame implements ActionListener, ListSelection
         difficultyList.setSelectedIndex(0);
         difficultyList.setLayoutOrientation(difficultyList.HORIZONTAL_WRAP);
         difficultyList.setPreferredSize(new Dimension(250,100));
-        add(difficultyList);
+        container.add(difficultyList);
         difficultyList.addListSelectionListener(this);
 
         //Initializes biome selector
@@ -67,13 +67,13 @@ public class GeneratorGUI extends Frame implements ActionListener, ListSelection
         for(String biomes : BIOMES){
             biomeChoice.add(biomes);
         }
-        add(biomeChoice);
+        container.add(biomeChoice);
         biomeChoice.addItemListener(this);
 
 
-
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("D&D 5e Encounter Generator");
-        setSize(250,100);
+        setSize(500,300);
         setVisible(true);
 
     }
@@ -144,6 +144,6 @@ public class GeneratorGUI extends Frame implements ActionListener, ListSelection
     @Override
     public void itemStateChanged(ItemEvent event){
         this.biome = String.valueOf(event.getItem());
-        System.out.println("New biome selection " + biome);
+        System.out.println("New biome selection: " + biome);
     }
 }
