@@ -42,7 +42,7 @@ public class GeneratorGUI extends JFrame implements ActionListener, ListSelectio
         container.setLayout(new FlowLayout());
 
         //Initializes party level, and button
-        this.partyLvlLabel = new Label("Party Level: ");
+        partyLvlLabel = new Label("Party Level: ");
         container.add(partyLvlLabel);
         partyLvlInt = 1;
         partyLvlField = new TextField(String.valueOf(partyLvlInt), 1);
@@ -63,7 +63,7 @@ public class GeneratorGUI extends JFrame implements ActionListener, ListSelectio
         difficultyList.addListSelectionListener(this);
 
         //Initializes biome selector
-        this.biome = "Forest";
+        biome = "Forest";
         biomeChoice = new Choice();
         for(String biomes : BIOMES){
             biomeChoice.add(biomes);

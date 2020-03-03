@@ -17,17 +17,17 @@ public class EncounterGenerator {
      * @throws FileNotFoundException Error if the needed file is not found.
      */
     public EncounterGenerator(File exp) throws FileNotFoundException{
-        this.expArray = new int[ARRAY_HEIGHT][ARRAY_WIDTH];
+        expArray = new int[ARRAY_HEIGHT][ARRAY_WIDTH];
         Scanner sc = new Scanner(exp);
         for(int i = 0; i < ARRAY_HEIGHT; i++){
             for(int o = 0; o < ARRAY_WIDTH; o++){
-                this.expArray[i][o] = sc.nextInt();
+                expArray[i][o] = sc.nextInt();
             }
         }
-        this.monsterList= new ArrayList<>();
-        this.encounterList = new ArrayList<>();
-        this.listParser = new MonsterListParser(new File("monsters.txt"));
-        this.listParser.fillList(monsterList);
+        monsterList= new ArrayList<>();
+        encounterList = new ArrayList<>();
+        listParser = new MonsterListParser(new File("monsters.txt"));
+        listParser.fillList(monsterList);
         //TODO use List iterator to sort by biome
         //monsterList.listIterator()
     }
