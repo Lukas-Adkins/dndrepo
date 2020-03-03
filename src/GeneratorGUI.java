@@ -44,6 +44,7 @@ public class GeneratorGUI extends JFrame implements ActionListener, ListSelectio
         //Initializes party level, and button
         this.partyLvlLabel = new Label("Party Level: ");
         container.add(partyLvlLabel);
+        partyLvlInt = 1;
         partyLvlField = new TextField(String.valueOf(partyLvlInt), 1);
         partyLvlField.setEditable(true);
         container.add(partyLvlField);
@@ -88,16 +89,17 @@ public class GeneratorGUI extends JFrame implements ActionListener, ListSelectio
      */
     @Override
     public void actionPerformed(ActionEvent event){
-        int partyLvlBackup = this.partyLvlInt;
         String actionLabel = event.getActionCommand();
-        if(actionLabel.equals("++")){
+        int partyLvlTemp = partyLvlInt;
+
+        if(actionLabel.equals("++") && !(partyLvlInt > 19) && !(partyLvlInt < 1)){
             this.partyLvlInt++;
         }
         else{
             try {
-                this.partyLvlInt = Integer.parseInt(event.getActionCommand());
+                partyLvlInt = Integer.parseInt(event.getActionCommand());
                 if(partyLvlInt < 1 || partyLvlInt > 20){
-                    this.partyLvlInt = partyLvlBackup;
+                    partyLvlInt = partyLvlTemp;
                     throw new NumberFormatException();
                 }
             }

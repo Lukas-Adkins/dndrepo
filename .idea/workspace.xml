@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="52a08cbf-6ba5-4e46-95e1-758543a7a4b1" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/out/production/dndrepo/GeneratorGUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dndrepo/GeneratorGUI.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GeneratorGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GeneratorGUI.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -56,7 +57,7 @@
         <entry file="file://$PROJECT_DIR$/src/GeneratorGUI.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="435">
-              <caret line="51" column="30" selection-start-line="51" selection-start-column="30" selection-end-line="51" selection-end-column="30" />
+              <caret line="104" column="13" lean-forward="true" selection-start-line="104" selection-start-column="13" selection-end-line="104" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -333,7 +334,7 @@
     <entry file="file://$PROJECT_DIR$/src/GeneratorGUI.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="435">
-          <caret line="51" column="30" selection-start-line="51" selection-start-column="30" selection-end-line="51" selection-end-column="30" />
+          <caret line="104" column="13" lean-forward="true" selection-start-line="104" selection-start-column="13" selection-end-line="104" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
