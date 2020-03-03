@@ -41,6 +41,7 @@ public class GeneratorGUI extends Frame implements ActionListener, ListSelection
         setLayout(new FlowLayout());
 
         //Initializes party level, and button
+        //TODO make this work when you also type the number in the box - currently it doesn't work
         this.partyLvlLabel = new Label("Party Level: ");
         add(partyLvlLabel);
         partyLvlField = new TextField(String.valueOf(partyLvlInt), 1);
@@ -49,6 +50,7 @@ public class GeneratorGUI extends Frame implements ActionListener, ListSelection
         partyLvlBt = new Button("++");
         add(partyLvlBt);
         partyLvlBt.addActionListener(this);
+        partyLvlField.addActionListener(this);
 
         //Initializes list difficulty selector
         difficultyList = new JList(DIFFICULTIES);
@@ -86,15 +88,31 @@ public class GeneratorGUI extends Frame implements ActionListener, ListSelection
      */
     @Override
     public void actionPerformed(ActionEvent event){
-        partyLvlInt++;
-        partyLvlField.setText(String.valueOf(partyLvlInt));
+        int partyLvlBackup = this.partyLvlInt;
+        String actionLabel = event.getActionCommand();
+        if(actionLabel.equals("++")){
+            this.partyLvlInt++;
+        }
+        else{
+            try {
+                this.partyLvlInt = Integer.parseInt(event.getActionCommand());
+                if(partyLvlInt < 1 || partyLvlInt > 20){
+                    this.partyLvlInt = partyLvlBackup;
+                    throw new NumberFormatException();
+                }
+            }
+            catch (NumberFormatException ex){
+                System.err.println("Invalid number input for player level.");
+            }
+        }
         //Debug print
+        this.partyLvlField.setText(String.valueOf(partyLvlInt));
         System.out.println("Party level increased to: " + partyLvlInt);
     }
 
 
     /**
-     * Listens for difficulty changes, and updates difficult integer depending on selection.
+     * Listens for difficulty changes, and updates difficulty integer depending on selection.
      * @param event new ListSelectionEvent by the user
      */
     @Override
@@ -119,6 +137,10 @@ public class GeneratorGUI extends Frame implements ActionListener, ListSelection
         }
     }
 
+    /**
+     * Listens for biome choice changes, and updates biome string depending on selection.
+     * @param event
+     */
     @Override
     public void itemStateChanged(ItemEvent event){
         this.biome = String.valueOf(event.getItem());
