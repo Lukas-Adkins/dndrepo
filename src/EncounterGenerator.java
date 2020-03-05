@@ -29,16 +29,17 @@ public class EncounterGenerator {
         listParser = new MonsterListParser(new File("monsters.txt"));
         listParser.fillList(monsterList);
         //TODO use List iterator to sort by biome
+        //TODO make it actually generate encounters lol
         //monsterList.listIterator()
     }
 
-    public void newEncounter(int players, int level, int difficultly, Location location){
+    public void newEncounter(int players, int level, int difficultly, String biome){
         int xpBudget = xpBudget(players,level,difficultly);
         int crBudget = level;
         if(level > 5)
             crBudget += 3;
 
-        System.out.println("Generating encounter for a " + players + " player level " + level + " party in " + location + " biome.");
+        System.out.println("Generating encounter for a " + players + " player level " + level + " party in " + biome + " biome.");
         System.out.println("XP budget is: " + xpBudget);
         System.out.println("CR budget is: " + crBudget);
         System.out.println("Possible Encounters:");
@@ -54,14 +55,18 @@ public class EncounterGenerator {
      * @return XP budget for encounter
      */
     private int xpBudget(int players, int level, int difficulty){
-        if(level > 0 && level < 20 && difficulty > 0 && difficulty < 5){
+        if(level > 0 && level <= 20 && difficulty > 0 && difficulty < 5){
             return players * expArray[level - 1][ difficulty - 1];
         }
-        System.err.println("Improper level or difficulty input.");
-        return -1;
+        else{
+            System.err.println("Improper level or difficulty input.");
+            return -1;
+        }
     }
 
+    /*
     enum Location{
         Forest, Arctic, Coast, Desert, Grassland, Hill, Mountain, Swamp, Underdark, Underwater, Urban
     }
+    */
 }

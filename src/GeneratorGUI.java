@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 //https://www.ntu.edu.sg/home/ehchua/programming/java/J4a_GUI.html
 
@@ -16,10 +18,11 @@ public class GeneratorGUI extends JFrame implements ActionListener, ListSelectio
     private static final int DEADLY = 4;
     private static final String ENCOUNTER_GEN = "Generate Encounters!";
 
+    private EncounterGenerator generator;
 
     private Label partyLvlLabel;
     private TextField partyLvlField;
-    private int partyLvlInt;
+    private int partyLvl;
     private Button partyLvlBt;
     private Panel partyLvlPanel;
 
@@ -52,12 +55,11 @@ public class GeneratorGUI extends JFrame implements ActionListener, ListSelectio
         diffPanel = new Panel();
         genPanel = new Panel();
 
-
         //Initializes party level, and button
         partyLvlLabel = new Label("Party Level: ");
         partyLvlPanel.add(partyLvlLabel);
-        partyLvlInt = 1;
-        partyLvlField = new TextField(String.valueOf(partyLvlInt), 1);
+        partyLvl = 1;
+        partyLvlField = new TextField(String.valueOf(partyLvl), 1);
         partyLvlField.setEditable(true);
         partyLvlPanel.add(partyLvlField);
         partyLvlBt = new Button("++");
@@ -71,6 +73,7 @@ public class GeneratorGUI extends JFrame implements ActionListener, ListSelectio
         diffList = new JList(DIFFICULTIES);
         diffList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
         diffList.setSelectedIndex(0);
+        difficulty = EASY;
         diffList.setLayoutOrientation(diffList.HORIZONTAL_WRAP);
         diffList.setPreferredSize(new Dimension(70,100));
         diffPanel.add(diffList);
@@ -93,8 +96,7 @@ public class GeneratorGUI extends JFrame implements ActionListener, ListSelectio
         genPanel.add(generateBt);
         generateBt.addActionListener(this);
 
-
-
+        //Adds containers to content plane
         container.add(partyLvlPanel);
         container.add(diffPanel);
         container.add(biomePanel);
@@ -104,33 +106,35 @@ public class GeneratorGUI extends JFrame implements ActionListener, ListSelectio
         setTitle("D&D 5e Encounter Generator");
         setSize(600,600);
         setVisible(true);
-
-    }
-
-    public static void main(String[] args){
-        GeneratorGUI gui = new GeneratorGUI();
     }
 
     /**
-     * Listens for incrementation of the party level, and increments partyLvlInt by 1.
+     * Listens for incrementation of the party level, and increments partyLvl by 1.
      * @param event new ActionEvent by the user
      */
     @Override
-    public void actionPerformed(ActionEvent event){
+    public void actionPerformed(ActionEvent event) {
         String actionLabel = event.getActionCommand();
-        int partyLvlTemp = partyLvlInt;
+        int partyLvlTemp = partyLvl;
 
         if(actionLabel.equals(ENCOUNTER_GEN)){
-            System.out.println("You clicked it.");
+            System.out.println("Generating encounters...");
+            try {
+                generateEncounter();
+            }
+            catch (FileNotFoundException e){
+                System.err.println("exp file not found. Terminating program.");
+                System.exit(1);
+            }
         }
-        else if(actionLabel.equals("++") && !(partyLvlInt > 19) && !(partyLvlInt < 1)){
-            this.partyLvlInt++;
+        else if(actionLabel.equals("++") && !(partyLvl > 19) && !(partyLvl < 1)){
+            this.partyLvl++;
         }
         else{
             try {
-                partyLvlInt = Integer.parseInt(event.getActionCommand());
-                if(partyLvlInt < 1 || partyLvlInt > 20){
-                    partyLvlInt = partyLvlTemp;
+                partyLvl = Integer.parseInt(event.getActionCommand());
+                if(partyLvl < 1 || partyLvl > 20){
+                    partyLvl = partyLvlTemp;
                     throw new NumberFormatException();
                 }
             }
@@ -139,8 +143,8 @@ public class GeneratorGUI extends JFrame implements ActionListener, ListSelectio
             }
         }
         //Debug print
-        this.partyLvlField.setText(String.valueOf(partyLvlInt));
-        System.out.println("Party level increased to: " + partyLvlInt);
+        this.partyLvlField.setText(String.valueOf(partyLvl));
+        System.out.println("Party level increased to: " + partyLvl);
     }
 
 
@@ -179,4 +183,14 @@ public class GeneratorGUI extends JFrame implements ActionListener, ListSelectio
         this.biome = String.valueOf(event.getItem());
         System.out.println("New biome selection: " + biome);
     }
+
+    /**
+     * Initializes a new EncounterGenerator instance to fetch results.
+     * @throws FileNotFoundException if exp constant file is not found.
+     */
+    public void generateEncounter() throws FileNotFoundException {
+        generator = new EncounterGenerator(new File("exp.txt"));
+        generator.newEncounter(4,partyLvl,difficulty,biome);
+    }
 }
+
