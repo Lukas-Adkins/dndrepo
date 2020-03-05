@@ -1,5 +1,3 @@
-import com.sun.org.apache.bcel.internal.generic.SWITCH;
-
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -23,11 +21,13 @@ public class GeneratorGUI extends JFrame implements ActionListener, ListSelectio
     private int partyLvlInt;
     private Button partyLvlBt;
 
-    private JList difficultyList;
+    private JList diffList;
+    private Label diffLabel;
     private static final String[] DIFFICULTIES = {"Easy", "Medium", "Hard", "Deadly"};
     private int difficulty;
 
     private Choice biomeChoice;
+    private Label biomeLabel;
     private static final String[] BIOMES = {"Forest", "Arctic", "Coast", "Desert",
             "Grassland", "Hill", "Mountain", "Swamp", "Underdark", "Underwater", "Urban"};
     private String biome;
@@ -39,42 +39,54 @@ public class GeneratorGUI extends JFrame implements ActionListener, ListSelectio
     public GeneratorGUI(){
         //Flow layout arranges components from left-to-right, and flow to next row from top-to-bottom
         Container container = getContentPane();
-        container.setLayout(new FlowLayout());
+        container.setLayout(new GridBagLayout());
+        Panel partyLvlPanel = new Panel();
+        Panel biomePanel = new Panel();
+        Panel diffPanel = new Panel();
+
 
         //Initializes party level, and button
         partyLvlLabel = new Label("Party Level: ");
-        container.add(partyLvlLabel);
+        partyLvlPanel.add(partyLvlLabel);
         partyLvlInt = 1;
         partyLvlField = new TextField(String.valueOf(partyLvlInt), 1);
         partyLvlField.setEditable(true);
-        container.add(partyLvlField);
+        partyLvlPanel.add(partyLvlField);
         partyLvlBt = new Button("++");
-        container.add(partyLvlBt);
+        partyLvlPanel.add(partyLvlBt);
         partyLvlBt.addActionListener(this);
         partyLvlField.addActionListener(this);
 
         //Initializes list difficulty selector
-        difficultyList = new JList(DIFFICULTIES);
-        difficultyList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-        difficultyList.setSelectedIndex(0);
-        difficultyList.setLayoutOrientation(difficultyList.HORIZONTAL_WRAP);
-        difficultyList.setPreferredSize(new Dimension(250,100));
-        container.add(difficultyList);
-        difficultyList.addListSelectionListener(this);
+        diffLabel = new Label("Difficulty: ");
+        diffPanel.add(diffLabel);
+        diffList = new JList(DIFFICULTIES);
+        diffList.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        diffList.setSelectedIndex(0);
+        diffList.setLayoutOrientation(diffList.HORIZONTAL_WRAP);
+        diffList.setPreferredSize(new Dimension(70,100));
+        diffPanel.add(diffList);
+        diffList.addListSelectionListener(this);
+        diffPanel.setLayout(new FlowLayout());
 
         //Initializes biome selector
         biome = "Forest";
+        biomeLabel = new Label("Biome: ");
+        biomePanel.add(biomeLabel);
         biomeChoice = new Choice();
         for(String biomes : BIOMES){
             biomeChoice.add(biomes);
         }
-        container.add(biomeChoice);
+        biomePanel.add(biomeChoice);
         biomeChoice.addItemListener(this);
 
+        container.add(partyLvlPanel);
+        container.add(diffPanel);
+        container.add(biomePanel);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("D&D 5e Encounter Generator");
-        setSize(500,300);
+        setSize(1000,300);
         setVisible(true);
 
     }
@@ -120,7 +132,7 @@ public class GeneratorGUI extends JFrame implements ActionListener, ListSelectio
     @Override
     public void valueChanged(ListSelectionEvent event){
         if(!event.getValueIsAdjusting()) {
-            switch (difficultyList.getSelectedIndex()) {
+            switch (diffList.getSelectedIndex()) {
                 case 0:
                     difficulty = EASY;
                     break;
