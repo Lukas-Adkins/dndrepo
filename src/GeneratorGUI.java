@@ -14,23 +14,30 @@ public class GeneratorGUI extends JFrame implements ActionListener, ListSelectio
     private static final int MEDIUM = 2;
     private static final int HARD = 3;
     private static final int DEADLY = 4;
+    private static final String ENCOUNTER_GEN = "Generate Encounters!";
 
 
     private Label partyLvlLabel;
     private TextField partyLvlField;
     private int partyLvlInt;
     private Button partyLvlBt;
+    private Panel partyLvlPanel;
 
     private JList diffList;
     private Label diffLabel;
     private static final String[] DIFFICULTIES = {"Easy", "Medium", "Hard", "Deadly"};
     private int difficulty;
+    private Panel diffPanel;
 
     private Choice biomeChoice;
     private Label biomeLabel;
     private static final String[] BIOMES = {"Forest", "Arctic", "Coast", "Desert",
             "Grassland", "Hill", "Mountain", "Swamp", "Underdark", "Underwater", "Urban"};
     private String biome;
+    private Panel biomePanel;
+
+    private Button generateBt;
+    private Panel genPanel;
 
 
     /**
@@ -39,10 +46,11 @@ public class GeneratorGUI extends JFrame implements ActionListener, ListSelectio
     public GeneratorGUI(){
         //Flow layout arranges components from left-to-right, and flow to next row from top-to-bottom
         Container container = getContentPane();
-        container.setLayout(new GridBagLayout());
-        Panel partyLvlPanel = new Panel();
-        Panel biomePanel = new Panel();
-        Panel diffPanel = new Panel();
+        container.setLayout(new FlowLayout());
+        partyLvlPanel = new Panel();
+        biomePanel = new Panel();
+        diffPanel = new Panel();
+        genPanel = new Panel();
 
 
         //Initializes party level, and button
@@ -67,7 +75,6 @@ public class GeneratorGUI extends JFrame implements ActionListener, ListSelectio
         diffList.setPreferredSize(new Dimension(70,100));
         diffPanel.add(diffList);
         diffList.addListSelectionListener(this);
-        diffPanel.setLayout(new FlowLayout());
 
         //Initializes biome selector
         biome = "Forest";
@@ -80,13 +87,22 @@ public class GeneratorGUI extends JFrame implements ActionListener, ListSelectio
         biomePanel.add(biomeChoice);
         biomeChoice.addItemListener(this);
 
+        //Initializes "Generate" button
+        generateBt = new Button(ENCOUNTER_GEN);
+        generateBt.setPreferredSize(new Dimension(150,40));
+        genPanel.add(generateBt);
+        generateBt.addActionListener(this);
+
+
+
         container.add(partyLvlPanel);
         container.add(diffPanel);
         container.add(biomePanel);
+        container.add(genPanel);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("D&D 5e Encounter Generator");
-        setSize(1000,300);
+        setSize(600,600);
         setVisible(true);
 
     }
@@ -104,7 +120,10 @@ public class GeneratorGUI extends JFrame implements ActionListener, ListSelectio
         String actionLabel = event.getActionCommand();
         int partyLvlTemp = partyLvlInt;
 
-        if(actionLabel.equals("++") && !(partyLvlInt > 19) && !(partyLvlInt < 1)){
+        if(actionLabel.equals(ENCOUNTER_GEN)){
+            System.out.println("You clicked it.");
+        }
+        else if(actionLabel.equals("++") && !(partyLvlInt > 19) && !(partyLvlInt < 1)){
             this.partyLvlInt++;
         }
         else{
